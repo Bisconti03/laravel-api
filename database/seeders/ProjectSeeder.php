@@ -10,6 +10,7 @@ use App\Models\Project;
 
 // Helpers
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 class ProjectSeeder extends Seeder
 {
@@ -21,9 +22,11 @@ class ProjectSeeder extends Seeder
     public function run(Faker $faker)
     {
         for ($i=0; $i < 10; $i++) { 
+            $name = $faker->unique()->sentence(4);
             Project::create([
                 
-                    'name' => $faker->unique()->sentence(4),
+                    'name' => $name,
+                    'slug' => Str::slug($name),
                     'description' => $faker->paragraph(),
                     'notes' => $faker->paragraph(2),
             ]);
